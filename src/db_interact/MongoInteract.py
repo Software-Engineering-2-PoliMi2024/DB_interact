@@ -22,8 +22,8 @@ class MongoInteract(DBinteract):
         self.dbUri = getenv('DB_URI')
         self.dbName = getenv('DB_NAME')
 
-        if self.dbUri is None:
-            raise ValueError("DB_URI environment variable not set. Please set it in your .env file.")
+        if self.dbUri is None or self.dbName is None:
+            raise ValueError("DB_URI environment variable not set. Please check the given path and required variables are present")
 
         self.client = None
         self.db = None
