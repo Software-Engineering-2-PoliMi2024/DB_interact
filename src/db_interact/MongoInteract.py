@@ -11,7 +11,7 @@ class MongoInteract(DBinteract):
     """ Class to interact with a MongoDB database.
         The class is designed to be used as a context manager to ensure proper resource management."""
     
-    def __init__(self, dbName: str, path="./.env", uriVarName="DB_URI"):
+    def __init__(self, path="./.env"):
         """ Initialize the MongoInteract class.
             Args:
              path (str): path to the .env file containing the DB_URI
@@ -19,14 +19,14 @@ class MongoInteract(DBinteract):
         """
 
         load_dotenv(path)
-        self.dbUri = getenv(uriVarName)
+        self.dbUri = getenv('DB_URI')
+        self.dbName = getenv('DB_NAME')
 
         if self.dbUri is None:
             raise ValueError("DB_URI environment variable not set. Please set it in your .env file.")
 
         self.client = None
         self.db = None
-        self.dbName = dbName
 
     
     def __enter__(self) -> Self:

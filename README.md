@@ -11,15 +11,27 @@ in particualar, it includes:
 - `NoDB`: a concrete implementation of `DBinteract` that does not connect to any database, useful for testing or for cases in which perstistent storage is not required.
 - `MongoInteract`: a concrete implementation of `DBinteract` that connects to a MongoDB database given a .env file containing the connection URI, and the name of the database to connect to.
 
-## Usage
+## Usage - MongoDB
 
-To use the package, you can import the desired class and use it as a context manager. For example:
+To use the `MongoInteract` class, you need to have a `.env` file with the following content:
+
+- `DB_URI`: the connection URI for your MongoDB database.
+- `DB_NAME`: the name of the database you want to connect to.
+
+an example of a `.env` file:
+
+```.env
+DB_URI = 'your_mongodb_connection_uri'
+DB_NAME = 'your_database_name'
+```
+
+To use the `MongoInteract` class, you can do the following:
 
 ```python
 from DB_interact import MongoInteract
 from dotenv import find_dotenv
 
-db = MongoInteract(db_name="mydatabase", path=find_dotenv(), uriVarName="DB_URI")
+db = MongoInteract(path=find_dotenv())
 
 with db as database:
     # Perform database operations here
